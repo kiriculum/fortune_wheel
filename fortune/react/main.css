@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    @apply select-none;
+  }
+  /* a {
+    @apply text-blue-600 dark:text-blue-400;
+  } */
+  h1 {
+    @apply text-4xl font-bold;
+  }
+  h2 {
+    @apply text-2xl font-bold;
+  }
+  h3 {
+    @apply text-xl font-bold;
+  }
+
+  input {
+    @apply focus:outline-none;
+  }
+}
+
+.hg-theme-default .hg-button.hg-standardBtn {
+  @apply p-3 w-10;
+}
+.hg-theme-default .hg-button.hg-functionBtn {
+  width: 2.5rem;
+  padding: 0.75rem;
+}
+
+.hg-theme-default .hg-rows .hg-row {
+  @apply mb-1;
+}
+
+.hg-theme-default .hg-row .hg-button {
+  @apply p-4;
+}
+
+.hg-theme-default .hg-row .hg-button:not(:last-child) {
+  @apply me-1;
+}
+
+.hg-theme-default .hg-button.hg-standardBtn[data-skbtn="@"] {
+  max-width: initial;
+}
+
+@layer components {
+  a.active {
+    @apply cursor-auto
+  }
+
+  .btn {
+    @apply rounded-lg p-2 text-lg ring-4 active:ring-8;
+  }
+
+  .btn[disabled] {
+    @apply text-gray-400 ring-2 dark:text-gray-600;
+  }
+
+  .btn.selected {
+    @apply ring-4;
+  }
+
+  .btn.positive {
+    @apply ring-green-600;
+  }
+
+  .btn.danger {
+    @apply ring-red-600;
+  }
+
+  .card {
+    @apply grid justify-center justify-items-center content-between rounded-md border-none p-2 ring-2 overflow-hidden  ring-indigo-300 active:ring-4 active:ring-indigo-500 
+    active:bg-slate-200;
+  }
+
+  .card.selected {
+    @apply ring-4 ring-indigo-500;
+  }
+
+  .guest {
+    @apply grid justify-center text-black justify-items-center rounded-md border-none p-2 ring-0 overflow-hidden bg-slate-400;
+  }
+
+  .guest.expecting {
+    @apply bg-yellow-400;
+  }
+
+  .guest.accepted {
+    @apply bg-green-600;
+  }
+
+  .guest.rejected {
+    @apply bg-red-600;
+  }
+  input {
+    @apply w-full rounded-md border-none p-2 ring-2  ring-indigo-300 focus:ring-indigo-500 focus:ring-4;
+  }
+
+  input[type="checkbox"] {
+    @apply rounded-none focus:ring-2
+  }
+
+  input:user-invalid {
+    @apply ring-2 ring-red-500
+  }
+
+  .form-control input {
+    @apply w-full rounded-md border-none p-2 ring-2  ring-indigo-300 focus:ring-indigo-500 focus:ring-4;
+  }
+  .form-control input.focused {
+    @apply ring-indigo-500 ring-4;
+  }
+
+  .form-control input[required] {
+    @apply [&:not(:placeholder-shown)]:invalid:ring-2 [&:not(:placeholder-shown)]:invalid:ring-rose-600;
+  }
+}
+
+@-moz-keyframes spin {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
+
