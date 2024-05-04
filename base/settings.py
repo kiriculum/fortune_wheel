@@ -56,19 +56,20 @@ TEMPLATES = [
     },
 ]
 
+STATIC_URL = "static/"
+STATIC_ROOT = PROJECT_DIR / "static"
+
+STATICFILES_DIRS = [
+    STATIC_ROOT / "react_dist"
+]
+
 DJANGO_VITE = {
     "default": {
         "dev_mode": env("DJANGO_VITE_DEV_MODE", default=False, cast=bool),
         "dev_server_port": env("DJANGO_VITE_DEV_SERVER_PORT", default="3000"),
+        "manifest_path": STATIC_ROOT / 'react_dist' / 'manifest.json'
     }
 }
-
-STATICFILES_DIRS = [
-    PROJECT_DIR / "fortune" / "react_dist"
-]
-
-STATIC_URL = "/static/"
-STATIC_ROOT = PROJECT_DIR / "react_dist " / "staticfiles"
 
 DATABASES = {
     'default': {

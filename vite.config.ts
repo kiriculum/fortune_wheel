@@ -13,7 +13,7 @@ export default defineConfig((mode) => {
   const env = loadEnv(mode.mode, process.cwd(), "");
 
   const INPUT_DIR = "./fortune/react";
-  const OUTPUT_DIR = "./fortune/react_dist";
+  const OUTPUT_DIR = "./static/react_dist";
 
   const res: UserConfig = {
     plugins: [react()],
@@ -32,13 +32,13 @@ export default defineConfig((mode) => {
     },
 
     build: {
-      manifest: true,
       emptyOutDir: true,
       outDir: resolve(OUTPUT_DIR),
+      manifest: "manifest.json",
       rollupOptions: {
         input: {
-          home: join(INPUT_DIR, "/js/apps/home.js"),
-          css: join(INPUT_DIR, "/css/main.css.js"),
+          home: join(INPUT_DIR, "/app.tsx"),
+          css: join(INPUT_DIR, "/main.css.js"),
         },
       },
     },

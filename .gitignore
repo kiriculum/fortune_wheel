@@ -3,3 +3,6 @@ venv**
 node_modules**
 **__pycache__**
 .idea**
+**react_dist**
+static**
+**.sqlite3

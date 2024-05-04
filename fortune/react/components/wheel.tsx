@@ -31,8 +31,8 @@ let timeout: ReturnType<typeof setTimeout>;
 
 export function Wheel() {
   const [ttr, setTtr] = useState(0);
-  const [spinning, setSpinning] = useState(false)
-  const [result, setResult] = useState('')
+  const [spinning, setSpinning] = useState(false);
+  const [result, setResult] = useState("");
 
   async function onClick() {
     const data = new FormData();
@@ -44,16 +44,16 @@ export function Wheel() {
     });
     const res = await response.json();
 
-    setSpinning(true)
+    setSpinning(true);
     setResult(res.result);
     spin(angle, res.rotate + angle);
     angle = (res.rotate + angle) % 360;
 
-    const ttr = (Math.floor((res.rotate / 360 / rps) * 1000));
-    if (timeout) clearTimeout(timeout)
-    timeout = setTimeout(() => setSpinning(false), ttr)
+    const ttr = Math.floor((res.rotate / 360 / rps) * 1000);
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => setSpinning(false), ttr);
 
-    setTtr(ttr)
+    setTtr(ttr);
   }
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export function Wheel() {
 
   return (
     <div className="flex flex-col gap-2 justify-center items-center p-2 pt-6">
-      <button onClick={onClick} className="btn">
+      <button disabled={spinning} onClick={onClick} className="btn">
         Spin The Wheel!
       </button>
       <div>Your result: {!spinning && result}</div>
