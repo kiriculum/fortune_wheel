@@ -20,7 +20,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
-COPY --from=builder-vite /app/static/react_dist /app/static/
+COPY --from=builder-vite /app/static/react_dist /app/static/react_dist/
 
 RUN ./manage.py migrate
 RUN ./manage.py check
