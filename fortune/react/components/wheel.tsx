@@ -2,36 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 
+const rps = 1;
+let timeout: ReturnType<typeof setTimeout>;
+
 type SpinStyle = {
   transform: string;
-  animationName?: string;
-  animationDuration?: string;
-  animationIterationCount?: number;
-  animationTimingFunction?: string;
+  transitionDuration?: string;
 };
-
-let angle = 0;
-const rps = 1;
-
-const style = document.createElement("style");
-document.getElementsByTagName("head")[0].appendChild(style);
-
-function spin(from: number, to: number) {
-  const keyFrames = `@keyframes spin {
-    from {transform:rotate(A_DYNAMIC_VALUE);}
-    to {transform:rotate(B_DYNAMIC_VALUE);}
-  }`;
-
-  style.innerHTML = keyFrames
-    .replace(/A_DYNAMIC_VALUE/g, `${from}deg`)
-    .replace(/B_DYNAMIC_VALUE/g, `${to}deg`);
-}
-
-let timeout: ReturnType<typeof setTimeout>;
 
 export function Wheel() {
   const [ttr, setTtr] = useState(0);
   const [spinning, setSpinning] = useState(false);
+  const [angle, setAngle] = useState(0);
   const [result, setResult] = useState("");
 
   async function onClick() {
@@ -44,15 +26,16 @@ export function Wheel() {
     });
     const res = await response.json();
 
-    setSpinning(true);
-    setResult(res.result);
-    spin(angle, res.rotate + angle);
-    angle = (res.rotate + angle) % 360;
-
     const ttr = Math.floor((res.rotate / 360 / rps) * 1000);
     if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => setSpinning(false), ttr);
+    timeout = setTimeout(() => {
+      setSpinning(false);
+      setAngle((v) => v % 360);
+    }, ttr);
 
+    setSpinning(true);
+    setResult(res.result);
+    setAngle(res.rotate + angle);
     setTtr(ttr);
   }
 
@@ -64,18 +47,12 @@ export function Wheel() {
     return () => clearTimeout(timeout);
   });
 
-  let spinStyle: SpinStyle = {
+  const spinStyle: SpinStyle = {
     transform: `rotate(${angle}deg)`,
-    animationName: "spin",
-    animationDuration: `${ttr}ms`,
-    animationIterationCount: 1,
-    animationTimingFunction: "linear",
+    transitionDuration: `${ttr}ms`,
   };
 
-  if (!ttr)
-    spinStyle = {
-      transform: `rotate(${angle}deg)`,
-    };
+  if (!spinning) delete spinStyle.transitionDuration;
 
   return (
     <div className="flex flex-col gap-2 justify-center items-center p-2 pt-6">
