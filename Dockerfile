@@ -1,4 +1,4 @@
-FROM node:slim as builder-vite
+FROM --platform=linux/amd64 node:slim as builder-vite
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ RUN npm i
 COPY . .
 RUN npm run build
 
-FROM python:slim as app
+FROM --platform=linux/amd64 python:slim as app
 
 RUN apt update
 RUN apt install -y python3-dev build-essential pkg-config
