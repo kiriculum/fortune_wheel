@@ -22,8 +22,8 @@ RUN pip install -r requirements.txt
 COPY . .
 COPY --from=builder-vite /app/static/react_dist /app/static/react_dist/
 
-RUN ./manage.py migrate
-RUN ./manage.py check
+RUN python manage.py migrate
+RUN python manage.py check
 
 
-CMD ["./manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
